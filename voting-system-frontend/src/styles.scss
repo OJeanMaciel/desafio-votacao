@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #F2F2F2;
+
+    .mat-mdc-card-content:first-child {
+        padding-top: 0px !important;
+      }
+  }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
