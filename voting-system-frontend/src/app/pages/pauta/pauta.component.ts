@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Pauta } from 'src/app/interface/Pauta';
 import { PautaService } from 'src/app/service/pauta-service';
+import Swal from 'sweetalert2';
 import { ModalComponent } from './components/modal/modal.component';
 
 @Component({
@@ -34,10 +35,37 @@ export class PautaComponent implements OnInit {
   }
 
   handleDelete(id: number) {
-    this.pautaService.delete(id).subscribe(() => {
-      this.pautaService.getPautas().subscribe((response) => {
-        this.pautas = response;
-      });
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Você não poderá reverter esta ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#33820D',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, delete!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.pautaService.delete(id).subscribe({
+          next: () => {
+            this.pautaService.getPautas().subscribe((response) => {
+              this.pautas = response;
+              Swal.fire(
+                'Deletado!',
+                'A pauta foi deletada.',
+                'success'
+              );
+            });
+          },
+          error: (err) => {
+            Swal.fire(
+              'Erro!',
+              'Houve um problema ao deletar a pauta. ' + (err.error || 'Erro desconhecido.'),
+              'error'
+            );
+          }
+        });
+      }
     });
   }
 

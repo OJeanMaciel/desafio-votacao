@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Pauta } from 'src/app/interface/Pauta';
 import { Sessao } from 'src/app/interface/Sessao';
 import { Voto } from 'src/app/interface/Voto';
 import { SessoesService } from 'src/app/service/sessoes-service';
+import Swal from 'sweetalert2';
 import { ModalVotoComponent } from './components/modal/modal-voto.component';
 import { SessoesModalComponent } from './components/modal/modal.component';
 
@@ -14,6 +16,7 @@ import { SessoesModalComponent } from './components/modal/modal.component';
 export class SessoesComponent implements OnInit {
   sessoes: Sessao[] = [];
   voto: Voto[] = [];
+  pauta: Pauta[] = [];
   pageNumber: number = 1;
   selectedOrder: string = '';
   isLoading: boolean = false;
@@ -37,12 +40,40 @@ export class SessoesComponent implements OnInit {
   }
 
   handleDelete(id: number) {
-    this.sessoesService.delete(id).subscribe(() => {
-      this.sessoesService.getSessoes().subscribe((response) => {
-        this.sessoes = response;
-      });
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Você não poderá reverter esta ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#33820D',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, delete!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.sessoesService.delete(id).subscribe({
+          next: () => {
+            this.sessoesService.getSessoes().subscribe((response) => {
+              this.sessoes = response;
+              Swal.fire(
+                'Deletado!',
+                'A pauta foi deletada.',
+                'success'
+              );
+            });
+          },
+          error: (err) => {
+            Swal.fire(
+              'Erro!',
+              'Houve um problema ao deletar a pauta. ' + (err.error || 'Erro desconhecido.'),
+              'error'
+            );
+          }
+        });
+      }
     });
   }
+
 
   navigate(route: string) {
     this.router.navigate([route]);
@@ -56,24 +87,20 @@ export class SessoesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.sessoesService.getSessoes().subscribe((response) => {
-          this.sessoes = response;
-        });
+        this.loadSessoes();
       }
     });
   }
 
-  openVotoDialog(voto?: Voto) {
+  openVotoDialog(sessao: Sessao) {
     const dialogRef = this.dialog.open(ModalVotoComponent, {
       width: '400px',
-      data: { voto: voto },
+      data: sessao
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.sessoesService.getSessoes().subscribe((response) => {
-          this.sessoes = response;
-        });
+        this.loadSessoes();
       }
     });
   }
