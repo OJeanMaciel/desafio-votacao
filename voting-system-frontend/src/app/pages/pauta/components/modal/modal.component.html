@@ -1,0 +1,15 @@
+<!-- modal.component.html -->
+<h2 mat-dialog-title>{{ isEditing ? 'Editar Pauta' : 'Registrar Nova Pauta' }}</h2>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="pautaForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <input matInput formControlName="descricao" placeholder="Descrição da Pauta">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button class="action-button" style="background-color: #555555;" (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button class="action-button" style="background-color: #33820D;" (click)="onRegister()">{{ isEditing
+    ? 'Salvar' : 'Registrar' }}</button>
+</mat-dialog-actions>

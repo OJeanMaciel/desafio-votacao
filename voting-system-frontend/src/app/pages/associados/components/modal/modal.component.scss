@@ -1,0 +1,28 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%; // Garante que os campos ocupem toda a largura disponível
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-evenly; // Alinha os botões à direita
+  margin-top: 20px; // Espaçamento entre o conteúdo do formulário e os botões
+}
+
+.action-button {
+  margin: 0 8px; // Espaçamento entre os botões
+  width: 150px;
+  height: 44px;
+  border-radius: 8px;
+  color: #ffff;
+  border: none;
+  cursor: pointer;
+}
+
+mat-form-field {
+  margin-bottom: 16px; // Espaçamento entre os campos do formulário
+}

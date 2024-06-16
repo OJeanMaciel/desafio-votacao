@@ -1,0 +1,26 @@
+<!-- modal.component.html -->
+<h2 mat-dialog-title>{{ 'Registrar Voto' }}</h2>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="votacaoForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Associado</mat-label>
+      <input matInput formControlName="associadoId" placeholder="Associado">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Pauta</mat-label>
+      <input matInput formControlName="pautaId" placeholder="Pauta da Pauta">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Voto</mat-label>
+      <input matInput formControlName="voto" placeholder="Voto">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>cpf</mat-label>
+      <input matInput formControlName="cpf" placeholder="cpf" mask="000.000.000-00">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button class="action-button" style="background-color: #555555;" (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button class="action-button" style="background-color: #33820D;" (click)="onRegister()">{{ 'Registrar' }}</button>
+</mat-dialog-actions>

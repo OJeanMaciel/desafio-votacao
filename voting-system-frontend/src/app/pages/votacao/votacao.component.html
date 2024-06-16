@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="card">
+    <mat-card-title class="card-header">
+      <span class="title">Lista dos Votos</span>
+    </mat-card-title>
+
+    <div *ngIf="votos.length === 0">
+      <mat-card class="no-votos-card">
+        <mat-card-content>
+          <p>Nenhum voto registrado</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="votos.length > 0">
+      <div *ngFor="let voto of votos; let i = index">
+        <mat-card class="votos-card">
+          <mat-card-content>
+            <mat-card-title>Voto #{{ voto.id }}</mat-card-title>
+            <mat-card-subtitle>Data de Criação: {{ voto.dataHoraVoto | date:'mediumDate' }}</mat-card-subtitle>
+            <p>{{ voto.voto }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

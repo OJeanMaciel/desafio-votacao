@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="card">
+    <mat-card-title class="card-header">
+      <span class="title">Gerenciamento das Sessões</span>
+      <app-button [text]="'Cadastrar'" (click)="openDialog()"></app-button>
+    </mat-card-title>
+
+    <div *ngIf="sessoes.length === 0">
+      <mat-card class="no-secoes-card">
+        <mat-card-content>
+          <p>Nenhuma seção registrada</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div *ngIf="sessoes.length > 0">
+      <div *ngFor="let sessao of sessoes; let i = index">
+        <mat-card class="secoes-card">
+          <mat-card-content>
+            <mat-card-title>Seção #{{ sessao.id }}</mat-card-title>
+            <mat-card-subtitle>Data de Abertura: {{ sessao.dataAbertura | date:'mediumDate' }}</mat-card-subtitle>
+            <mat-card-subtitle>Tempo de Encerramento: {{ sessao.dataEncerramento | date:'mediumDate' }}</mat-card-subtitle>
+          </mat-card-content>
+
+          <mat-card-content>
+            <mat-card-title>Total de Votos</mat-card-title>
+            <mat-card-subtitle>Total Não: {{ sessao.totalNao }}</mat-card-subtitle>
+            <mat-card-subtitle>Total Sim: {{ sessao.totalSim }}</mat-card-subtitle>
+            <mat-card-subtitle>Total: {{ sessao.totalSim + sessao.totalNao }}</mat-card-subtitle>
+          </mat-card-content>
+
+          <mat-card-actions class="btn-actions-container">
+            <app-button [text]="'Votar'" (click)="openVotoDialog()"></app-button>
+          </mat-card-actions>
+
+          <mat-card-actions class="btn-actions-container">
+            <button class="btn-actions" (click)="openDialog(sessao)">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button class="btn-actions" (click)="handleDelete(sessao.id)">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
