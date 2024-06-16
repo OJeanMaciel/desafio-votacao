@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class PautaService {
+    private static final Logger logger = Logger.getLogger(AssociateService.class.getName());
 
     @Autowired
     private PautaRepository pautaRepository;
@@ -30,6 +32,7 @@ public class PautaService {
         pauta.setDescricao(pautaDto.getDescricao());
         pauta.setDataCriacao(LocalDate.now());
         pauta = pautaRepository.save(pauta);
+        logger.info("Created agenda: " + pauta.toString());
         return new PautaDto(pauta.getId(), pauta.getDescricao(), pauta.getDataCriacao());
     }
 
@@ -37,17 +40,22 @@ public class PautaService {
         Pauta pauta = pautaRepository.findById(id).orElseThrow(() -> new AgendaNotFoundException("Pauta com ID" + id + "não encontrado"));
         pauta.setDescricao(pautaDto.getDescricao());
         pauta = pautaRepository.save(pauta);
+        logger.info("Updated agenda: " + pauta.toString());
         return new PautaDto(pauta.getId(), pauta.getDescricao(), pauta.getDataCriacao());
     }
 
     public PautaDto getAgendaById(Long id) {
         Pauta pauta = pautaRepository.findById(id).orElseThrow(() -> new AgendaNotFoundException("Pauta com ID" + id + "não encontrado"));
+        logger.info("Retrieved agenda: " + pauta.toString());
         return new PautaDto(pauta.getId(), pauta.getDescricao(), pauta.getDataCriacao());
     }
 
     public List<PautaDto> getAllAgenda() {
         return pautaRepository.findAllByOrderByDataCriacaoAsc().stream()
-                .map(pauta -> new PautaDto(pauta.getId(), pauta.getDescricao(), pauta.getDataCriacao()))
+                .map(pauta -> {
+                    logger.info("Retrieved agenda: " + pauta.toString());
+                    return new PautaDto(pauta.getId(), pauta.getDescricao(), pauta.getDataCriacao());
+                })
                 .collect(Collectors.toList());
     }
 
@@ -56,13 +64,16 @@ public class PautaService {
                 .orElseThrow(() -> new AgendaNotFoundException("Pauta com ID" + id + "não encontrado"));
 
         if (votingRepository.existsByPautaId(pauta.getId())) {
+            logger.severe("Pauta com ID " + id + " tem votos associados.");
             throw new RuntimeException("Não é possível excluir uma pauta que tem votos associados.");
         }
 
         if (votingSessionRepository.existsByPautaId(pauta.getId())) {
+            logger.severe("Pauta com ID " + id + " tem sessões de votação associadas.");
             throw new RuntimeException("Não é possível excluir uma pauta que tem sessões de votação associadas.");
         }
 
+        logger.info("Deleted agenda with ID " + id);
         pautaRepository.deleteById(id);
     }
 }

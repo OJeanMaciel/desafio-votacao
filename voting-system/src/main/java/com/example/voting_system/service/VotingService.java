@@ -1,5 +1,6 @@
 package com.example.voting_system.service;
 
+import com.example.voting_system.controller.AssociateController;
 import com.example.voting_system.dto.VotingDto;
 import com.example.voting_system.entity.Associate;
 import com.example.voting_system.entity.VotingSession;
@@ -20,10 +21,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class VotingService {
+    private static final Logger logger = Logger.getLogger(AssociateController.class.getName());
 
     @Autowired
     private VotingRepository votingRepository;
@@ -48,6 +51,7 @@ public class VotingService {
                 .orElseThrow(() -> new InvalidCpfException("Associado não encontrado"));
 
         if (votingRepository.existsByCpfAndPautaId(cleanCpf, votingDto.getPautaId())) {
+            logger.severe("Duplicate vote: " + votingDto);
             throw new DuplicateVoteException("Associado já votou nesta pauta");
         }
 
@@ -55,12 +59,14 @@ public class VotingService {
                 .orElseThrow(() -> new VotingSessionNotFoundException("Sessão de votação não encontrada ou já encerrada"));
 
         if (sessao.getDataEncerramento() != null && sessao.getDataEncerramento().isBefore(LocalDateTime.now())) {
+            logger.severe("Voting session closed: " + votingDto);
             throw new VotingSessionClosedException("A sessão de votação já foi encerrada");
         }
 
         // Validação do voto
         List<String> validVotes = Arrays.asList("Sim", "Não");
         if (!validVotes.contains(votingDto.getVoto())) {
+            logger.severe("Invalid vote: " + votingDto);
             throw new InvalidVoteException("Voto inválido. Aceito apenas 'Sim' ou 'Não'");
         }
 
@@ -72,10 +78,12 @@ public class VotingService {
         voting.setDataHoraVoto(LocalDate.now());
         voting = votingRepository.save(voting);
 
+        logger.info("Created voting: " + voting.toString());
         return new VotingDto(voting.getId(), voting.getPautaId(), voting.getAssociadoId(), voting.getVoto(), voting.getCpf(), voting.getDataHoraVoto());
     }
 
     public List<VotingDto> getAllVoting() {
+        logger.info("Request to get all voting");
         return votingRepository.findAll().stream()
                 .map(voting -> new VotingDto(voting.getId(), voting.getPautaId(), voting.getAssociadoId(), voting.getVoto(), voting.getCpf(), voting.getDataHoraVoto()))
                 .collect(Collectors.toList());
