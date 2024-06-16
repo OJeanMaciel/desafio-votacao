@@ -7,7 +7,7 @@ import { Sessao } from '../interface/Sessao';
   providedIn: 'root',
 })
 export class SessoesService {
-  private sessaoUrl = 'api/secao';
+  private sessaoUrl = 'api/sessao';
 
   constructor(private http: HttpClient) {}
 
@@ -20,8 +20,8 @@ export class SessoesService {
     return this.http.get<Sessao>(url);
   }
 
-  insert(secao: Sessao): Observable<Sessao> {
-    return this.http.post<Sessao>(this.sessaoUrl, secao);
+  insert(sessao: Sessao): Observable<Sessao> {
+    return this.http.post<Sessao>(this.sessaoUrl, sessao);
   }
 
   delete(id: number): Observable<Sessao> {
