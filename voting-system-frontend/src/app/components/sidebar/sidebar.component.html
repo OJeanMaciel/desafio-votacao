@@ -1,0 +1,38 @@
+<div class="sidebar-container" [ngClass]="{'is-open': isOpen}">
+  <div class="logo">
+    <i class="fa-regular fa-circle-check"></i>
+  </div>
+  <br>
+  <button (click)="toggleSidebar()" class="btn" [ngClass]="{'is-open': isOpen}">
+    <i class="fa-solid fa-chevron-right" *ngIf="!isOpen"></i>
+    <i class="fa-solid fa-chevron-left" *ngIf="isOpen"></i>
+  </button>
+  <div class=list>
+    <ul>
+      <li>
+        <button class="button" routerLink="associados" title="Associados">
+          <i class="fa-solid fa-user"></i>
+          <p *ngIf="isOpen">Associados</p>
+        </button>
+      </li>
+      <li>
+        <button class="button" routerLink="pauta" title="Pautas">
+          <i class="fa-regular fa-id-card"></i>
+          <p *ngIf="isOpen">Pautas</p>
+        </button>
+      </li>
+      <li>
+        <button class="button" routerLink="sessoes" title="sessões">
+          <i class="fa-regular fa-paste"></i>
+          <p *ngIf="isOpen">Sessões</p>
+        </button>
+      </li>
+      <li>
+        <button class="button" routerLink="votacao" title="Votação">
+          <i class="fa-solid fa-check-to-slot"></i>
+          <p *ngIf="isOpen">Votação</p>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

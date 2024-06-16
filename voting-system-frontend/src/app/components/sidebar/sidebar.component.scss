@@ -1,0 +1,98 @@
+
+.sidebar-container {
+  background-color: #fff;
+  height: 80vh;
+  min-width: 80px;
+  position: fixed;
+  top: 100px;
+  left: 3vw;
+  border-radius: 18px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  .logo {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    margin: 30px 20px 0px 25px;
+
+    .fa-regular {
+      font-size: 40px;
+      color: #33820D;
+    }
+  }
+}
+
+.sidebar-container.is-open {
+  width: 250px;
+  transform: translateX(0);
+}
+
+.btn {
+  background-color: #33820D;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: 55px;
+  border: none;
+  margin: 10px 0 30px 0;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+
+  .fa-chevron-right {
+    font-size: 30px;
+    color: #fff;
+    background-color: transparent;
+  }
+
+  .fa-chevron-left {
+     font-size: 30px;
+     color: #fff;
+     background-color: transparent;
+   }
+}
+
+.btn.is-open {
+  left: 220px;
+}
+
+
+.list ul {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding-left: 30px;
+  gap: 30px;
+
+  li {
+    list-style: none;
+
+  .button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .fa-regular, .fa-solid {
+        font-size: 28px;
+        color: #000;
+        margin-right: 10px;
+      }
+
+      p {
+        margin: 0;
+        font-size: 18px;
+        color: #000;
+      }
+
+      .fa-regular:hover,
+      .fa-solid:hover,
+      p:hover {
+        color: #33820D;
+      }
+    }
+  }
+}

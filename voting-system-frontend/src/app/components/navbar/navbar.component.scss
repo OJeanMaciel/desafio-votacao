@@ -1,0 +1,20 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    height: 80px;
+    padding: 0 20px;
+    background-color: #F2F2F2;
+    border-bottom: 2px solid #3FA110;
+    z-index: 1;
+
+    .logo {
+        width: 205px;
+        height: 30px;
+    }
+}
