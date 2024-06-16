@@ -3,20 +3,23 @@
 <mat-dialog-content class="dialog-content">
   <form [formGroup]="votacaoForm">
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Associado</mat-label>
-      <input matInput formControlName="associadoId" placeholder="Associado">
+      <mat-label>CPF</mat-label>
+      <input matInput formControlName="cpf" placeholder="cpf" mask="000.000.000-00">
     </mat-form-field>
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Pauta</mat-label>
-      <input matInput formControlName="pautaId" placeholder="Pauta da Pauta">
+      <mat-select formControlName="pautaId">
+        <mat-option *ngFor="let pauta of pautas" [value]="pauta.id">
+          {{ pauta.descricao }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Voto</mat-label>
-      <input matInput formControlName="voto" placeholder="Voto">
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>cpf</mat-label>
-      <input matInput formControlName="cpf" placeholder="cpf" mask="000.000.000-00">
+      <mat-select formControlName="voto">
+        <mat-option [value]="'Sim'">Sim</mat-option>
+        <mat-option [value]="'Não'">Não</mat-option>
+      </mat-select>
     </mat-form-field>
   </form>
 </mat-dialog-content>

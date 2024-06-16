@@ -1,26 +1,44 @@
 <!-- modal.component.html -->
 <h2 mat-dialog-title>{{ isEditing ? 'Editar Seção' : 'Registrar Nova Seção' }}</h2>
 <mat-dialog-content class="dialog-content">
-  <form [formGroup]="secaoForm">
+  <form [formGroup]="sessaoForm">
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Pauta</mat-label>
-      <input matInput formControlName="pauta" placeholder="Pauta ID">
+      <mat-select formControlName="pauta">
+        <mat-option *ngFor="let pauta of pautas" [value]="pauta.id">
+          {{ pauta.descricao }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Data da Abertura</mat-label>
-      <input matInput formControlName="dataAbertura" placeholder="Data da Abertura da Seção">
+      <input matInput [matDatepicker]="picker1" formControlName="dataAbertura" placeholder="Data da Abertura da Seção">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Tempo de Encerramento</mat-label>
-      <input matInput formControlName="dataEncerramento" placeholder="Tempo de Encerramento da Seção">
+      <mat-label>Hora da Abertura</mat-label>
+      <input matInput formControlName="horaAbertura" placeholder="HH:mm">
     </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Data de Encerramento</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="dataEncerramento" placeholder="Data de Encerramento da Seção">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Hora de Encerramento</mat-label>
+      <input matInput formControlName="horaEncerramento" placeholder="HH:mm">
+    </mat-form-field>
+
   </form>
 </mat-dialog-content>
 <mat-dialog-actions class="dialog-actions">
   <button mat-button class="action-button" style="background-color: #555555;" (click)="onCancel()">Cancelar</button>
-  <button mat-raised-button class="action-button" style="background-color: #33820D;" (click)="onRegister()">{{ isEditing
-    ? 'Salvar' : 'Registrar' }}</button>
+  <button mat-raised-button class="action-button" style="background-color: #33820D;" (click)="onRegister()">{{ isEditing ? 'Salvar' : 'Registrar' }}</button>
 </mat-dialog-actions>

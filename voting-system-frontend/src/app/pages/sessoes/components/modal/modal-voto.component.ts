@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Pauta } from 'src/app/interface/Pauta';
+import { PautaService } from 'src/app/service/pauta-service';
 import { VotosService } from 'src/app/service/votos-service';
 import Swal from 'sweetalert2';
 
@@ -10,20 +12,25 @@ import Swal from 'sweetalert2';
   styleUrls: ['./modal-voto.component.scss'],
 })
 export class ModalVotoComponent {
+  pautas: Pauta[] = [];
   votacaoForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<ModalVotoComponent>,
     private fb: FormBuilder,
     private votosService: VotosService,
+    private pautasService: PautaService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    this.pautas = Array.isArray(data.pauta) ? data.pauta : [data.pauta];
     this.votacaoForm = this.fb.group({
-      associadoId: [this.data.associadoId, Validators.required],
       pautaId: [this.data.pautaId, Validators.required],
-      voto: [this.data.voto, Validators.required],
       cpf: [this.data.cpf, Validators.required],
+      voto: [this.data.voto, Validators.required],
     });
+  }
+
+  ngOnInit(): void {
   }
 
   onCancel(): void {

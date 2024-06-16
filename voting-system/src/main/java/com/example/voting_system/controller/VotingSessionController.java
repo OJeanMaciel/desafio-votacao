@@ -10,7 +10,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/secao")
+@RequestMapping("/sessao")
 public class VotingSessionController {
 
     @Autowired

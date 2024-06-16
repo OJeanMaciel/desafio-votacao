@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface VotingSessionRepository extends JpaRepository<VotingSession, Long> {
     Optional<Object> findByPautaId(Long pautaId);
+
+    boolean existsByPautaId(Long pautaId);
 }

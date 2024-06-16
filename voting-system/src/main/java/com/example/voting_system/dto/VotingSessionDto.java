@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,11 +16,11 @@ public class VotingSessionDto {
 
     private PautaDto pauta;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dataAbertura;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dataAbertura;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dataEncerramento;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dataEncerramento;
 
     private int totalSim;
 

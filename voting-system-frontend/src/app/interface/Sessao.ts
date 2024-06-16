@@ -1,4 +1,7 @@
+import { Pauta } from "./Pauta";
+
 export interface Sessao {
+  pauta: Pauta;
   id: number;
   pautaId: number;
   dataAbertura: Date;

@@ -4,6 +4,8 @@ import com.example.voting_system.dto.PautaDto;
 import com.example.voting_system.entity.Pauta;
 import com.example.voting_system.exception.AgendaNotFoundException;
 import com.example.voting_system.repository.PautaRepository;
+import com.example.voting_system.repository.VotingRepository;
+import com.example.voting_system.repository.VotingSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class PautaService {
 
     @Autowired
     private PautaRepository pautaRepository;
+
+    @Autowired
+    private VotingRepository votingRepository;
+
+    @Autowired
+    private VotingSessionRepository votingSessionRepository;
 
     public PautaDto create(PautaDto pautaDto) {
         Pauta pauta = new Pauta();
@@ -44,6 +52,17 @@ public class PautaService {
     }
 
     public void delete(Long id) {
+        Pauta pauta = pautaRepository.findById(id)
+                .orElseThrow(() -> new AgendaNotFoundException("Pauta com ID" + id + "não encontrado"));
+
+        if (votingRepository.existsByPautaId(pauta.getId())) {
+            throw new RuntimeException("Não é possível excluir uma pauta que tem votos associados.");
+        }
+
+        if (votingSessionRepository.existsByPautaId(pauta.getId())) {
+            throw new RuntimeException("Não é possível excluir uma pauta que tem sessões de votação associadas.");
+        }
+
         pautaRepository.deleteById(id);
     }
 }

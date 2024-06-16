@@ -1,7 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,11 +12,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { NgxPaginationModule } from 'ngx-pagination';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './components/button/button.component';
@@ -28,7 +31,6 @@ import { ModalVotoComponent } from './pages/sessoes/components/modal/modal-voto.
 import { SessoesModalComponent } from './pages/sessoes/components/modal/modal.component';
 import { SessoesComponent } from './pages/sessoes/sessoes.component';
 import { VotacaoComponent } from './pages/votacao/votacao.component';
-
 
 @NgModule({
   declarations: [
@@ -62,6 +64,12 @@ import { VotacaoComponent } from './pages/votacao/votacao.component';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     NgxMaskDirective,
+    MatSelectModule,
+    NgxMatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [provideNgxMask({})],
   bootstrap: [AppComponent],
