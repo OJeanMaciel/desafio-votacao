@@ -116,6 +116,13 @@
     ora "5.4.1"
     rxjs "6.6.7"
 
+"@angular-material-components/datetime-picker@15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@angular-material-components/datetime-picker/-/datetime-picker-15.0.0.tgz#551ccca89707ee989bbf6dd7d11ec02536a7ee6d"
+  integrity sha512-WMnvab14KA+V1UPkNv6+3Ka1ySJXeps3aD1ijqgdyLRp5qrGCMtrMhVpdZFJ1WPZrsqtd7yG3hh1w4aR2Cb8xA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/animations@^15.2.0":
   version "15.2.8"
   resolved "https://registry.npmjs.org/@angular/animations/-/animations-15.2.8.tgz"
@@ -197,6 +204,13 @@
   version "15.2.8"
   resolved "https://registry.npmjs.org/@angular/forms/-/forms-15.2.8.tgz"
   integrity sha512-VyevVj20DdQWjAQUyiFTe+DAzqG9GqfAOWn376Y/lhPcwxAojXePTGNgtQud566/urDrNrP5haaLD6O36/3n+w==
+  dependencies:
+    tslib "^2.3.0"
+
+"@angular/material-moment-adapter@15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/material-moment-adapter/-/material-moment-adapter-15.0.0.tgz#8d9c762839af7df2388df1222b439c7f9d829e76"
+  integrity sha512-bjCzUGqxxBLrBcyxMstqpydycBw3JDMQLBmii4NOXbmBcWYTAUgkcrzZW3WprxqqTETbZsOv8eySOYwBjnVkrQ==
   dependencies:
     tslib "^2.3.0"
 
