@@ -32,9 +32,9 @@ export class SessoesModalComponent implements OnInit {
       horaEncerramento: [''],
     });
 
-    if (data.secao) {
+    if (data.sessao) {
       this.isEditing = true;
-      this.sessaoForm.patchValue(data.secao);
+      this.sessaoForm.patchValue(data.sessao);
     }
   }
 
